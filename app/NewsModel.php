@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class NewsModel extends Model
 {
-    protected $fillable = ['id', 'title', 'text', 'picturePath', 'visible', 'created_at'];
-    protected $hidden = ['updated_at', 'deleted_at'];
+    protected $fillable = ['id', 'title', 'text', 'picturePath', 'visible', 'publicationDate'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     public function scopePublished($query)
     {

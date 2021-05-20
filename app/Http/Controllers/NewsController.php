@@ -11,7 +11,7 @@ class NewsController extends Controller
 {
     public function getNews(){
         $offset = $_GET['offset'] ?? 0;
-        $limit = $_GET['limit'] ?? 5;
+        $limit = $_GET['limit'] ?? 6;
 
     	$qb = NewsModel::published();
 
@@ -57,20 +57,21 @@ class NewsController extends Controller
         return $result;
     }
 
-	public function createNew(Request $req)
-    {
-        $req->validate([
-          'title' => 'required|string',
-          'text' => 'required',
-          'visible' => 'required|boolean',
-        ]);
-        $new = new NewsModel;
-        $new->title = $req->title;
-        $new->text = $req->text;
-        $new->visible = $req->visible;
+    private function saveItem($new, $req){
+        $new->fill($req->validated());
+
         if ($req->publicationDate){
-            $new->publicationDate = $req->publicationDate;
+           $new->publicationDate =  $req->publicationDate
         }
+
+        $file = $req->file('file');
+
+        if ($file){
+            $name = uniqid()."_".$file->getClientOriginalName();
+            $file->move('uploads',$name);
+            $new->picturePath = url('/')."/uploads/{$name}";
+        }
+
         try{
             $new->save();
         }
@@ -80,42 +81,27 @@ class NewsController extends Controller
         return response()->json(['message' => 'sucess!'], 200);
     }
 
+	public function createNew(NewsRequest $req)
+    {
+        $new = new NewsModel;
+        return this->saveItem($new, $req);
+    }
+
 	public function updateNew(Request $req, $id)
 	{
-
-        $req->validate([
-          'title' => 'required|string',
-          'text' => 'required',
-          'visible' => 'required|boolean',
-        ]);
-
         $new = NewsModel::where('id',(Integer)$id)
                 ->first();
 
         if (!$new) return response()->json(['message' => 'Not Found!'], 404);
 
-        $new->fill([ 'title' => $req->title,
-                     'text' => $req->text,
-                     'visible' => $req->visible
-                    ]);
-        if ($req->publicationDate){
-           $new->fill([ 'publicationDate' => $req->publicationDate
-                    ]);
-        }
-        try{
-            $new->save();
-        }
-        catch (Exception $e){
-            return response()->json(['error' => $e], 402);
-        }
-		return response()->json(['message' => 'sucess!'], 200);
+        return this->saveItem($new, $req);
 	}
 
 	public function deleteNew($id)
     {
         $new = NewsModel::findOrFail($id);
         try{
-           $new->delete() 
+           $new->delete();
         }
         catch (Exception $e){
             return response()->json(['error' => $e], 402);

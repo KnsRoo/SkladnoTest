@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-class NewsRequest extends Request
+class NewsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,26 +21,13 @@ class NewsRequest extends Request
      *
      * @return array
      */
-    public function rules(Request $req)
+    public function rules()
     {
-      echo "rules";
-
-      $rules = [
-          'title' => 'required|string',
-          'text' => 'required',
-          'visible' => 'required|boolean',
-      ];
-
-      switch ($this->getMethod())
-      {
-        case 'POST':
-          return $rules;
-        case 'PATCH':
-          return array_merge(['id' => 'required|integer'],$rules);
-        case 'DELETE':
-          return [
-              'id' => 'required|integer'
-          ];
-      }
+        return [
+            'title' => 'required',
+            'text' => 'required',
+            'visible' => 'required|boolean',
+            'publicationDate' => 'date_format:Y.m.d H:i:s',
+        ];
     }
 }
