@@ -61,7 +61,7 @@ class NewsController extends Controller
         $new->fill($req->validated());
 
         if ($req->publicationDate){
-           $new->publicationDate =  $req->publicationDate
+           $new->publicationDate =  $req->publicationDate;
         }
 
         $file = $req->file('file');
@@ -84,7 +84,7 @@ class NewsController extends Controller
 	public function createNew(NewsRequest $req)
     {
         $new = new NewsModel;
-        return this->saveItem($new, $req);
+        return $this->saveItem($new, $req);
     }
 
 	public function updateNew(Request $req, $id)
@@ -94,7 +94,7 @@ class NewsController extends Controller
 
         if (!$new) return response()->json(['message' => 'Not Found!'], 404);
 
-        return this->saveItem($new, $req);
+        return $this->saveItem($new, $req);
 	}
 
 	public function deleteNew($id)
