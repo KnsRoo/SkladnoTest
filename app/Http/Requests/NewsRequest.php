@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
-class NewsRequest extends FormRequest
+class NewsRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,11 @@ class NewsRequest extends FormRequest
      */
     public function rules(Request $req)
     {
+      echo "rules";
+
       $rules = [
           'title' => 'required|string',
-          'description' => 'required',
+          'text' => 'required',
           'visible' => 'required|boolean',
       ];
 

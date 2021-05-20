@@ -8,4 +8,10 @@ class NewsModel extends Model
 {
     protected $fillable = ['id', 'title', 'text', 'picturePath', 'visible', 'created_at'];
     protected $hidden = ['updated_at', 'deleted_at'];
+
+    public function scopePublished($query)
+    {
+        return $query->where('visible',1)
+        		     ->where('publicationDate', '<=', date('Y-m-d H:i:s'));
+    }
 }
