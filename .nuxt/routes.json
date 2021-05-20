@@ -1,0 +1,16 @@
+[
+  {
+    "name": "auth",
+    "path": "/auth",
+    "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\auth.vue",
+    "chunkName": "pages/auth",
+    "_name": "_26ab64b8"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_2a2c48f2"
+  }
+]
