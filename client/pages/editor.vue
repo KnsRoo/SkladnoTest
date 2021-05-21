@@ -1,12 +1,12 @@
 <template>
 	<div class="container mt-60">
+		<h1 class="h3 mb-3 fw-normal center">{{maintitle}}</h1>
 		<form @submit.prevent = "onSubmit" class = "form-group">
-		<h1 class="h3 mb-3 fw-normal center">{{title}}</h1>
-		<div class="form-floating p-3">
+		<div class="form-floating">
 			<p class = "title">Заголовок</p>
       		<input type="text" class="form-control" v-model="title">
     	</div>
- 		<div class="form-floating p-3">
+ 		<div class="form-floating">
 			<p class = "title">Текст</p>
       		<textarea class="form-control" v-model="text"></textarea>
     	</div>
@@ -14,25 +14,27 @@
 		  <label for="formFile" class="form-label">Изображение</label>
 		  <input class="form-control" type="file" id = "formFile">
 		</div>
-		<p class = "title">Видимость</p>
-		<div class="form-check">
-		  <input class="form-check-input" type="radio" v-model="visible" name = "dateGroup" id="unvisible" value = "0">
-		  <label class="form-check-label" for="unvisible">
-		    Скрыта
-		  </label>
-		</div>
-		<div class="form-check">
-		  <input class="form-check-input" type="radio" v-model="visible" name = "dateGroup" id="visible" value = "1" checked>
-		  <label class="form-check-label" for="visible">
-		    Опубликована
-		  </label>
-		</div>
-		<div class="form-check">
-		  <input class="form-check-input" type="radio" v-model="visible" name = "dateGroup" id = "ondate" value = "2" checked>
-		  <label class="form-check-label" for="ondate">
-		    Опубликовать ко времени
-		  </label>
-		  <input :disabled="visible != 2" type="datetime-local" v-model="publicationDate">
+		<div class="form-floating">
+			<p class = "title">Видимость</p>
+			<div class="form-check">
+			  <input class="form-check-input" type="radio" v-model="visible" name = "dateGroup" id="unvisible" value = "0">
+			  <label class="form-check-label" for="unvisible">
+			    Скрыта
+			  </label>
+			</div>
+			<div class="form-check">
+			  <input class="form-check-input" type="radio" v-model="visible" name = "dateGroup" id="visible" value = "1" checked>
+			  <label class="form-check-label" for="visible">
+			    Опубликована
+			  </label>
+			</div>
+			<div class="form-check">
+			  <input class="form-check-input" type="radio" v-model="visible" name = "dateGroup" id = "ondate" value = "2" checked>
+			  <label class="form-check-label" for="ondate">
+			    Опубликовать ко времени
+			  </label>
+			  <input :disabled="visible != 2" type="datetime-local" v-model="publicationDate">
+			</div>
 		</div>
 		<div class = "d-flex mt-5 gap">
 			<button class="w-100 btn btn-lg btn-primary" type="submit">Сохранить</button>
@@ -55,8 +57,19 @@ export default {
 		}
 	},
 	computed: {
-		title(){
-			return this.mode == 'new' ? 'Добавление новости' : 'Редактирование новости'
+		maintitle(){
+			return (this.mode === 'new') ? 'Добавление новости' : 'Редактирование новости'
+		}
+	},
+	methods: {
+		async onSubmit(){
+			await this.$store.dispatch('news/ADD_FORM', {
+				'title': this.title,
+				'text': this.text,
+				'file': this.file,
+				'visible': parseInt(this.visible),
+				'publicationDate' : this.publicationDate
+			})
 		}
 	},
 	created(){
@@ -69,15 +82,15 @@ export default {
 		date+=`T${now.getHours()}:${now.getMinutes()}`
 		this.publicationDate = date
 	},
-	async fetch(){
-
+	mounted(){
+		this.mode = this.$route.query.edit ? 'edit' : 'new'
 	}
 }
 </script>
 
 <style>
 .mt-60 {
-	margin-top: 60px;
+	margin-top: 100px;
 }
 .gap {
 	gap: 10px;

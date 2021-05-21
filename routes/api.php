@@ -38,7 +38,9 @@ Route::group([
 ], function(){
     Route::resource('news', 'NewsController');
 
-    Route::get('/', 'NewsController@getNews')->name('api:news:get');
+    Route::get('/', 'NewsController@getPublishedNews')->name('api:published:get');
+
+    Route::get('/all', 'NewsController@getNews')->name('api:news:get');
 
     Route::get('get/{id}', 'NewsController@getNew')->name('api:new:get');
 
