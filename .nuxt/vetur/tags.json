@@ -1,5 +1,8 @@
 {
-  "Logo": {
-    "description": "Auto imported from components/Logo.vue"
+  "NavBar": {
+    "description": "Auto imported from components/NavBar.vue"
+  },
+  "NavBarAdmin": {
+    "description": "Auto imported from components/NavBarAdmin.vue"
   }
 }

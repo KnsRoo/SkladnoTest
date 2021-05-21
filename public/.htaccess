@@ -5,7 +5,7 @@
 
     RewriteEngine On
 
-    RewriteBase /
+    RewriteBase /app
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .

@@ -7,6 +7,9 @@
     <div class="form-floating p-3">
       <input type="email" class="form-control" id="floatingInput" placeholder="E-mail">
     </div>
+    <div v-if = "mode == 'signup'" class="form-floating p-3">
+      <input type="text" class="form-control" id="floatingInput" placeholder="Имя">
+    </div>
     <div class="form-floating p-3">
       <input type="password" class="form-control" id="floatingPassword" placeholder="Пароль">
     </div>

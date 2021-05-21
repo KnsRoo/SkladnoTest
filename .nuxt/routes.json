@@ -7,6 +7,13 @@
     "_name": "_26ab64b8"
   },
   {
+    "name": "editor",
+    "path": "/editor",
+    "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\editor.vue",
+    "chunkName": "pages/editor",
+    "_name": "_d6a00006"
+  },
+  {
     "name": "index",
     "path": "/",
     "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\index.vue",
