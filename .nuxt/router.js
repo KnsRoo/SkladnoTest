@@ -4,8 +4,10 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _26ab64b8 = () => interopDefault(import('..\\client\\pages\\auth.vue' /* webpackChunkName: "pages/auth" */))
+const _5b9b9cef = () => interopDefault(import('..\\client\\pages\\admin.vue' /* webpackChunkName: "pages/admin" */))
 const _d6a00006 = () => interopDefault(import('..\\client\\pages\\editor.vue' /* webpackChunkName: "pages/editor" */))
+const _8325a89c = () => interopDefault(import('..\\client\\pages\\signin.vue' /* webpackChunkName: "pages/signin" */))
+const _59f8fbb0 = () => interopDefault(import('..\\client\\pages\\signup.vue' /* webpackChunkName: "pages/signup" */))
 const _2a2c48f2 = () => interopDefault(import('..\\client\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
@@ -20,13 +22,21 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
-    path: "/auth",
-    component: _26ab64b8,
-    name: "auth"
+    path: "/admin",
+    component: _5b9b9cef,
+    name: "admin"
   }, {
     path: "/editor",
     component: _d6a00006,
     name: "editor"
+  }, {
+    path: "/signin",
+    component: _8325a89c,
+    name: "signin"
+  }, {
+    path: "/signup",
+    component: _59f8fbb0,
+    name: "signup"
   }, {
     path: "/",
     component: _2a2c48f2,

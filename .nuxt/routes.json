@@ -1,20 +1,37 @@
 [
   {
-    "name": "auth",
-    "path": "/auth",
-    "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\auth.vue",
-    "chunkName": "pages/auth"
+    "name": "admin",
+    "path": "/admin",
+    "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\admin.vue",
+    "chunkName": "pages/admin",
+    "_name": "_5b9b9cef"
   },
   {
     "name": "editor",
     "path": "/editor",
     "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\editor.vue",
-    "chunkName": "pages/editor"
+    "chunkName": "pages/editor",
+    "_name": "_d6a00006"
+  },
+  {
+    "name": "signin",
+    "path": "/signin",
+    "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\signin.vue",
+    "chunkName": "pages/signin",
+    "_name": "_8325a89c"
+  },
+  {
+    "name": "signup",
+    "path": "/signup",
+    "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\signup.vue",
+    "chunkName": "pages/signup",
+    "_name": "_59f8fbb0"
   },
   {
     "name": "index",
     "path": "/",
     "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_2a2c48f2"
   }
 ]

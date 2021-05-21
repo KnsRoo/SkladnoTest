@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/admin", (function(a){return {data:[{news:[{id:a,title:"new 1",picturePath:null,text:"text",visible:a,publicationDate:"2021-05-21 00:51:07"}]}],fetch:{},mutations:[]}}(1)));

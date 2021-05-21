@@ -4,5 +4,8 @@
   },
   "NavBarAdmin": {
     "description": "Auto imported from components/NavBarAdmin.vue"
+  },
+  "NewsItem": {
+    "description": "Auto imported from components/NewsItem.vue"
   }
 }

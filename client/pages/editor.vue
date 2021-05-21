@@ -12,6 +12,7 @@
     	</div>
 		<div class="mb-3">
 		  <label for="formFile" class="form-label">Изображение</label>
+		  <img v-if = "picturePath" class = "bd-placeholder-img card-img-top" :src = "picturePath"/>
 		  <input class="form-control" type="file" id = "formFile">
 		</div>
 		<div class="form-floating">
@@ -38,7 +39,7 @@
 		</div>
 		<div class = "d-flex mt-5 gap">
 			<button class="w-100 btn btn-lg btn-primary" type="submit">Сохранить</button>
-    		<button class="w-100 btn btn-lg btn-danger">Отменить</button>
+    		<button @click="cancel" class="w-100 btn btn-lg btn-danger">Отменить</button>
 		</div>
 	</form>
 	</div>
@@ -46,14 +47,33 @@
 
 <script>
 export default {
+	async asyncData({query, $axios, store, redirect}){
+	    if (!store.getters.USER){
+	      return redirect(302, '/signin')
+	    }
+		let id = query.edit
+		if (!id) return {};
+		const response = await $axios.$get(`http://test.local/app/api/news/get/${id}`)
+		return {
+			id: response.id,
+			mode: 'edit',
+			title: response.title,
+			text: response.text,
+			visible: response.visible,
+			picturePath: response.picturePath,
+			publicationDate: response.publicationDate
+		}
+	},
 	data(){
 		return {
 			mode: 'new',
+			editableId: null,
 			title: '',
 			text: '',
 			file: null,
 			visible: '1',
-			publicationDate: null
+			publicationDate: null,
+			picturePath: null
 		}
 	},
 	computed: {
@@ -63,13 +83,20 @@ export default {
 	},
 	methods: {
 		async onSubmit(){
-			await this.$store.dispatch('news/ADD_FORM', {
+			let data = {
 				'title': this.title,
 				'text': this.text,
 				'file': this.file,
 				'visible': parseInt(this.visible),
 				'publicationDate' : this.publicationDate
-			})
+			}
+			if (this.editableId && mode == 'edit'){
+				data['id'] = this.editableId
+			}
+			await this.$store.dispatch('news/PATCH_NEW', data)
+		},
+		cancel(){
+			this.$router.push('/')
 		}
 	},
 	created(){

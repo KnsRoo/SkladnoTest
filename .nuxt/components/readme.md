@@ -8,3 +8,4 @@ You can directly use them in pages and other components without the need to impo
 
 - `<NavBar>` | `<nav-bar>` (components/NavBar.vue)
 - `<NavBarAdmin>` | `<nav-bar-admin>` (components/NavBarAdmin.vue)
+- `<NewsItem>` | `<news-item>` (components/NewsItem.vue)
