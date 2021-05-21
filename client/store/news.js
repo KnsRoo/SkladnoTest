@@ -1,12 +1,13 @@
 export const state = () => ({
-	news: []
+	news: [],
+	prev: null,
+	next: null
 })
 
 export const actions = {
-	async FETCH_NEWS({commit}, target){
-		let postfix = (target === 'all') ? 'all' : '' 
-		const response = await this.$axios.$get(`http://test.local/app/api/news/${postfix}`)
-		commit('SET_NEWS', response._embedded.items)
+	async FETCH_NEWS({commit}, link){
+		const response = await this.$axios.$get(link)
+		commit('SET_NEWS', response)
 	},
 	async PATCH_NEW(dispatch, data){
 		let formData = new FormData()
@@ -36,10 +37,18 @@ export const actions = {
 
 export const mutations = {
 	SET_NEWS(state, data){
-		state.news = data
+		if (data._links.prev){
+			state.prev = data._links.prev
+		}
+		if (data._links.next){
+			state.prev = data._links.next
+		}
+		state.news = data.embedded.items
 	}
 }
 
 export const getters = {
-	NEWS: s => s.news
+	NEWS: s => s.news,
+	PREV: s => s.prev,
+	NEXT: s => s.next
 }

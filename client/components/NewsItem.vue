@@ -17,17 +17,20 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default{
 	props: {
 		item: Object,
 		editable: Boolean
 	},
 	methods: {
+		...mapActions('news', ['DEL_NEW']),
 		edit(){
 			this.$router.push({ path: '/editor', query: { edit: this.$props.item.id } })
 		},
 		remove(){
-			this.$store.dispatch('DEL_NEW', this.$props.item.id)
+			this.DEL_NEW(this.$props.item.id)
 		}
 	}
 }

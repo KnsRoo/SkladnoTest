@@ -13,7 +13,7 @@
 		<div class="mb-3">
 		  <label for="formFile" class="form-label">Изображение</label>
 		  <img v-if = "picturePath" class = "bd-placeholder-img card-img-top" :src = "picturePath"/>
-		  <input class="form-control" type="file" id = "formFile">
+		  <input class="form-control" type="file" @change="handleFileUpload" ref = "file" id = "formFile">
 		</div>
 		<div class="form-floating">
 			<p class = "title">Видимость</p>
@@ -61,7 +61,7 @@ export default {
 			publicationDate: response.publicationDate
 		}
 	},
-	middleware: ['auth'],
+	//middleware: ['auth'],
 	data(){
 		return {
 			mode: 'new',
@@ -95,9 +95,12 @@ export default {
 		},
 		cancel(){
 			this.$router.push('/admin')
+		},
+		handleFileUpload(){
+			this.file = this.$refs.file.files[0];
 		}
 	},
-	created(){
+	async created(){
 		let now = new Date();
 		let month = now.getMonth()+1
 		let day =  now.getDate()
@@ -106,9 +109,11 @@ export default {
 		let date = `${now.getFullYear()}-${month}-${day}`
 		date+=`T${now.getHours()}:${now.getMinutes()}`
 		this.publicationDate = date
-	},
-	async created(){
 		this.mode = this.$route.query.edit ? 'edit' : 'new'
+		await this.FETCH_USER()
+		if (!this.USER){
+			this.$router.push('/signin')
+		}
 	}
 }
 </script>
