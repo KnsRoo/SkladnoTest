@@ -47,15 +47,12 @@
 
 <script>
 export default {
-	async asyncData({query, $axios, store, redirect}){
-	    if (!store.getters.USER){
-	      return redirect(302, '/signin')
-	    }
+	async asyncData({query, $axios }){
 		let id = query.edit
 		if (!id) return {};
 		const response = await $axios.$get(`http://test.local/app/api/news/get/${id}`)
 		return {
-			id: response.id,
+			editableId: response.id,
 			mode: 'edit',
 			title: response.title,
 			text: response.text,
@@ -64,6 +61,7 @@ export default {
 			publicationDate: response.publicationDate
 		}
 	},
+	middleware: ['auth'],
 	data(){
 		return {
 			mode: 'new',
@@ -96,7 +94,7 @@ export default {
 			await this.$store.dispatch('news/PATCH_NEW', data)
 		},
 		cancel(){
-			this.$router.push('/')
+			this.$router.push('/admin')
 		}
 	},
 	created(){
@@ -109,7 +107,7 @@ export default {
 		date+=`T${now.getHours()}:${now.getMinutes()}`
 		this.publicationDate = date
 	},
-	mounted(){
+	async created(){
 		this.mode = this.$route.query.edit ? 'edit' : 'new'
 	}
 }

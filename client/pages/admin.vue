@@ -12,7 +12,7 @@
           </div>
         </div>
       </div>
-      <div class="col" v-for="item in news">
+      <div class="col" v-for="item in NEWS">
         <NewsItem :item="item" :editable="true"/>
       </div>
 
@@ -24,29 +24,35 @@
 <script>
 import NewsItem from '@/components/NewsItem'
 
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
-  async asyncData({$axios, store, redirect}){
-    if (!store.getters.USER){
-      return redirect(302, '/signin')
+  async fetch({store}){
+    if (store.getters['news/NEWS'].length == 0){
+      await store.dispatch('news/FETCH_NEWS','all')
     }
-    const response = await $axios.$get('http://test.local/app/api/news/all')
-    let news = response._embedded.items
-    return {news}
   },
+  //middleware: ['auth'],
   data(){
     return {
-      news: []
     }
   },
   components: {
     NewsItem
   },
   methods: {
+    ...mapActions('user', ['FETCH_USER']),
     add(){
       this.$router.push('/editor')
     }
   },
-  mounted(){
+  computed: {
+    ...mapGetters('user', ['USER']),
+    ...mapGetters('news', ['NEWS']),
+  },
+  async created(){
+    this.FETCH_USER()
+    console.log(this.USER)
   }
 }
 </script>

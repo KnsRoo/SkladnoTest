@@ -28,7 +28,7 @@ class NewsRequest extends FormRequest
         return [
             'title' => 'required',
             'text' => 'required',
-            'visible' => 'required|boolean',
+            'visible' => 'required',
             'publicationDate' => 'date_format:Y.m.d H:i:s',
         ];
     }

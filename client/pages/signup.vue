@@ -16,13 +16,15 @@
     <div class="form-floating p-3">
       <input type="password" class="form-control" id="floatingPassword" v-model="password_confirm" placeholder="Подтвердите пароль">
     </div>
-    <buttonclass="w-100 btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
+    <button class="w-100 btn btn-lg btn-primary" :disabled="!valid" type="submit">Зарегистрироваться</button>
   </form>
 </div>
 </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data(){
     return {
@@ -31,10 +33,22 @@ export default {
       password: '',
       password_confirm: ''
     }
-  }
+  },
+  computed: {
+    valid(){
+      let isEqual = ((this.password_confirm == this.password) && (this.password.length != 0))
+      let isEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.email)
+      let isName = this.name.length > 1
+      return isEqual && isEmail && isName
+    }
+  },
   methods: {
+    ...mapActions('user', ['REGISTRATION']),
     async signUp(){
-      await this.$store.dispatch('user/REGISTRATION', {name: this.name email: this.email, password: this.password})
+      let result = await this.REGISTRATION({name: this.name, email: this.email, password: this.password})
+      if (result){
+        this.$router.push('/signin')
+      }
     }
   }
 }
