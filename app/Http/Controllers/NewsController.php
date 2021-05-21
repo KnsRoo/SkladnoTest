@@ -9,7 +9,7 @@ use Exception;
 
 class NewsController extends Controller
 {
-    private function getHal($qb, $offset, $limit){
+    private function getHal($qb, $offset, $limit, $route = 'published'){
         $qbCnt = clone $qb;
         $count = $qbCnt->count();
 
@@ -21,23 +21,23 @@ class NewsController extends Controller
             'total' => $count,
             'offset' => $offset,
             'limit' => $limit,
-            '_links' => $this->getLinks($offset,$limit,$count),
+            '_links' => $this->getLinks($offset,$limit,$count, $route),
             '_embedded' => [
                 'items' => $result
             ] 
         ]);
     }
 
-    private function getLinks($offset,$limit, $count){
+    private function getLinks($offset,$limit, $count, $route){
         $result = [];
-        $result['self'] = route('api:published:get', ['offset' => $offset, 'limit' => $limit]);
+        $result['self'] = route("api:{$route}:get", ['offset' => $offset, 'limit' => $limit]);
         if ($offset != 0){
             $prev = $offset - $limit;
-            $result['prev'] = route('api:published:get', ['offset' => $prev, 'limit' => $limit]);
+            $result['prev'] = route("api:{$route}:get", ['offset' => $prev, 'limit' => $limit]);
         }
         if ($count > $offset + $limit){
             $next = $offset + $limit;
-            $result['next'] = route('api:published:get', ['offset' => $next, 'limit' => $limit]);
+            $result['next'] = route("api:{$route}:get", ['offset' => $next, 'limit' => $limit]);
         }
         return $result;
     }
@@ -72,7 +72,7 @@ class NewsController extends Controller
 
         $qb = new NewsModel;
 
-        return $this->getHal($qb,$offset,$limit);
+        return $this->getHal($qb,$offset,$limit, 'news');
     }
 
     public function getPublishedNews(){
