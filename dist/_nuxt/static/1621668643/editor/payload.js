@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/editor", {data:[{mode:"new",editableId:null}],fetch:{},mutations:[]});

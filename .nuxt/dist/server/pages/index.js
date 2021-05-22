@@ -1,7 +1,7 @@
 exports.ids = [4,1];
 exports.modules = {
 
-/***/ 32:
+/***/ 35:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -94,7 +94,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 49:
+/***/ 52:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -109,7 +109,7 @@ var staticRenderFns = []
 // CONCATENATED MODULE: ./client/pages/index.vue?vue&type=template&id=ea4f7552&
 
 // EXTERNAL MODULE: ./client/components/NewsItem.vue + 4 modules
-var NewsItem = __webpack_require__(32);
+var NewsItem = __webpack_require__(35);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(3);
@@ -211,7 +211,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var pages = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {NewsItem: __webpack_require__(32).default})
+installComponents(component, {NewsItem: __webpack_require__(35).default})
 
 
 /***/ })

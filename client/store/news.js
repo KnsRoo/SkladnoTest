@@ -22,16 +22,26 @@ export const actions = {
 		if (data.id){
 			link = `http://test.local/app/api/news/update/${data.id}`
 		}
+		let token = JSON.parse(localStorage.getItem("jwt"))
+		let header = `${token.token_type} ${token.access_token}`
 		const response = await this.$axios.$post(link,
 		  	formData,{
 			    headers: {
-			        'Content-Type': 'multipart/form-data'
+			        'Content-Type': 'multipart/form-data',
+			        Authorization: header
 			}
 		 })
 		await dispatch('FETCH_NEWS',data.link)
 	},
-	async DEL_NEW(context, data){
-		const response = await this.$axios.$delete(`http://test.local/app/api/news/delete/${data.id}`)
+	async DEL_NEW({dispatch}, data){
+		let token = JSON.parse(localStorage.getItem("jwt"))
+		let header = `${token.token_type} ${token.access_token}`
+		const response = await this.$axios.$delete(`http://test.local/app/api/news/delete/${data.id}`,{}, {
+			headers: {
+			        'Content-Type': 'multipart/form-data',
+			        Authorization: header
+			}
+		})
 		await dispatch("FETCH_NEWS", data.link)
 	}
 }

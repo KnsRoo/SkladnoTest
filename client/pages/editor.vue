@@ -49,23 +49,6 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-	async asyncData({query, $axios }){
-		let id = query.edit
-		if (!id) return {
-			mode: "new",
-			editableId: null
-		};
-		const response = await $axios.$get(`http://test.local/app/api/news/get/${id}`)
-		return {
-			editableId: response.id,
-			mode: 'edit',
-			title: response.title,
-			text: response.text,
-			visible: response.visible,
-			picturePath: response.picturePath,
-			publicationDate: response.publicationDate
-		}
-	},
 	data(){
 		return {
 			mode: 'new',
@@ -110,14 +93,24 @@ export default {
 	},
 	async created(){
 		this.mode = this.$route.query.edit ? 'edit' : 'new'
-		// if (process.client){
-		// 	if (!this.USER){
-		// 		await this.FETCH_USER()
-		// 	}
-		// 	if (!this.USER){
-		// 		this.$router.push('/signin')
-		// 	}
-		// }
+		if (process.client){
+			if (!this.USER){
+				await this.FETCH_USER()
+			}
+			if (!this.USER){
+				this.$router.push('/signin')
+			}
+		}
+		let id = this.$route.query.edit
+		if (!id) return;
+		const response = await this.$axios.$get(`http://test.local/app/api/news/get/${id}`)
+		this.editableId = response.id,
+		this.mode = 'edit',
+		this.title = response.title,
+		this.text = response.text,
+		this.visible = response.visible,
+		this.picturePath = response.picturePath,
+		this.publicationDate = response.publicationDate
 	}
 }
 </script>

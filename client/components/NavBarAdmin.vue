@@ -11,10 +11,29 @@
           <nuxt-link exact active-class="active" class="nav-link" to="/admin">Панель Управления</nuxt-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" @click.prevent = "logout">Выйти</a>
+          <a class="nav-link cp" @click.prevent = "logout">Выйти</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 </template>
+
+<script>
+import { mapActions } from 'vuex'
+export default {
+  methods: {
+    ...mapActions('user', ['LOGOUT']),
+    logout(){
+      this.LOGOUT()
+      this.$router.push('/')
+    }
+  }
+}
+</script>
+
+<style>
+.cp {
+  cursor: pointer;
+}
+</style>

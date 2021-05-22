@@ -44,7 +44,6 @@ export default {
 			await store.dispatch('news/FETCH_NEWS',link)
 		}
 	},
-	//middleware: ['auth'],
 	data(){
 		return {
 			page: 1
@@ -75,14 +74,14 @@ export default {
 		...mapGetters('news', ['NEWS', 'PREV', 'NEXT']),
 	},
 	async created(){
-		// if (process.client){
-		// 	if (!this.USER){
-		// 		await this.FETCH_USER()
-		// 	}
-		// 	if (!this.USER){
-		// 		this.$router.push('/signin')
-		// 	}
-		// }
+		if (process.client){
+			if (!this.USER){
+				await this.FETCH_USER()
+			}
+			if (!this.USER){
+				this.$router.push('/signin')
+			}
+		}
 	}
 }
 </script>

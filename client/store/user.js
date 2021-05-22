@@ -7,6 +7,7 @@ export const state = () => ({
 export const actions = {
 	async FETCH_USER({commit}){
 		let token = JSON.parse(localStorage.getItem("jwt"))
+		if (!token) return;
 		let header = `${token.token_type} ${token.access_token}`
 		const response = await this.$axios.$post('http://test.local/app/api/auth/me', {},{
 			headers: {
@@ -30,7 +31,6 @@ export const actions = {
 				Accept: 'application/json'
 			}
 		})
-		console.log(response)
 		localStorage.setItem("jwt", JSON.stringify(response))
 		await dispatch('FETCH_USER')
 		if (!state.user.name){
@@ -46,12 +46,10 @@ export const actions = {
 
 export const mutations = {
 	SET_USER(state, data){
-		console.log("setting user", data)
 		state.user = data
-		console.log("user setted", state.user)
 	},
 	REM_USER(state, data){
-		state.user = undefined
+		state.user = {}
 	}
 }
 
