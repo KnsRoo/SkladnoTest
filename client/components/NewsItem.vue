@@ -7,6 +7,8 @@
 			<p class="card-text">{{item.text}}</p>
 			<div class="d-flex justify-content-between align-items-center">
 				<div v-if="editable" class="btn-group">
+				  <img v-if = "item.visible" width = "24" height = "24" src = "/visible.png"/>
+				  <img v-else width = "24" height = "24" src = "/unvisible.png"/>
                   <button type="button" @click="edit" class="btn btn-sm btn-outline-secondary">Редактировать</button>
                   <button type="button" @click="remove" class="btn btn-sm btn-outline-secondary">Удалить</button>
                 </div>
@@ -30,7 +32,11 @@ export default{
 			this.$router.push({ path: '/editor', query: { edit: this.$props.item.id } })
 		},
 		remove(){
-			this.DEL_NEW(this.$props.item.id)
+			let data = {
+				link: "http://test.local/app/api/news/all",
+				id: this.$props.item.id
+			}
+			this.DEL_NEW(data)
 		}
 	}
 }

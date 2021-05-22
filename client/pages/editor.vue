@@ -1,7 +1,7 @@
 <template>
 	<div class="container mt-60">
 		<h1 class="h3 mb-3 fw-normal center">{{maintitle}}</h1>
-		<form @submit.prevent = "onSubmit" class = "form-group">
+		<div class = "form-group">
 		<div class="form-floating">
 			<p class = "title">Заголовок</p>
       		<input type="text" class="form-control" v-model="title">
@@ -12,7 +12,7 @@
     	</div>
 		<div class="mb-3">
 		  <label for="formFile" class="form-label">Изображение</label>
-		  <img v-if = "picturePath" class = "bd-placeholder-img card-img-top" :src = "picturePath"/>
+		  <img v-if = "picturePath" width = "500" class = "bd-placeholder-img card-img-top" :src = "picturePath"/>
 		  <input class="form-control" type="file" @change="handleFileUpload" ref = "file" id = "formFile">
 		</div>
 		<div class="form-floating">
@@ -34,22 +34,27 @@
 			  <label class="form-check-label" for="ondate">
 			    Опубликовать ко времени
 			  </label>
-			  <input :disabled="visible != 2" type="datetime-local" v-model="publicationDate">
+			  <input :disabled="visible != 2" id = "ondate" placeholder="YYYY-MM-DD HH:MM" type="text" v-model="publicationDate">
 			</div>
 		</div>
 		<div class = "d-flex mt-5 gap">
-			<button class="w-100 btn btn-lg btn-primary" type="submit">Сохранить</button>
+			<button @click="onSubmit" class="w-100 btn btn-lg btn-primary">Сохранить</button>
     		<button @click="cancel" class="w-100 btn btn-lg btn-danger">Отменить</button>
 		</div>
-	</form>
+	</div>
 	</div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
 	async asyncData({query, $axios }){
 		let id = query.edit
-		if (!id) return {};
+		if (!id) return {
+			mode: "new",
+			editableId: null
+		};
 		const response = await $axios.$get(`http://test.local/app/api/news/get/${id}`)
 		return {
 			editableId: response.id,
@@ -61,7 +66,6 @@ export default {
 			publicationDate: response.publicationDate
 		}
 	},
-	//middleware: ['auth'],
 	data(){
 		return {
 			mode: 'new',
@@ -75,11 +79,13 @@ export default {
 		}
 	},
 	computed: {
+		...mapGetters('user', ['USER']),
 		maintitle(){
 			return (this.mode === 'new') ? 'Добавление новости' : 'Редактирование новости'
 		}
 	},
 	methods: {
+		...mapActions('user', ['FETCH_USER']),
 		async onSubmit(){
 			let data = {
 				'title': this.title,
@@ -88,10 +94,12 @@ export default {
 				'visible': parseInt(this.visible),
 				'publicationDate' : this.publicationDate
 			}
-			if (this.editableId && mode == 'edit'){
+			if (this.editableId && this.mode == 'edit'){
 				data['id'] = this.editableId
 			}
+			data.link = "http://test.local/app/api/news/all"
 			await this.$store.dispatch('news/PATCH_NEW', data)
+			this.$router.push('/admin')
 		},
 		cancel(){
 			this.$router.push('/admin')
@@ -101,19 +109,15 @@ export default {
 		}
 	},
 	async created(){
-		let now = new Date();
-		let month = now.getMonth()+1
-		let day =  now.getDate()
-		month = (month < 10) ? '0'+month : month
-		day = (day < 10) ? '0'+day : day
-		let date = `${now.getFullYear()}-${month}-${day}`
-		date+=`T${now.getHours()}:${now.getMinutes()}`
-		this.publicationDate = date
 		this.mode = this.$route.query.edit ? 'edit' : 'new'
-		await this.FETCH_USER()
-		if (!this.USER){
-			this.$router.push('/signin')
-		}
+		// if (process.client){
+		// 	if (!this.USER){
+		// 		await this.FETCH_USER()
+		// 	}
+		// 	if (!this.USER){
+		// 		this.$router.push('/signin')
+		// 	}
+		// }
 	}
 }
 </script>

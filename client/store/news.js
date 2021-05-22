@@ -9,7 +9,7 @@ export const actions = {
 		const response = await this.$axios.$get(link)
 		commit('SET_NEWS', response)
 	},
-	async PATCH_NEW(dispatch, data){
+	async PATCH_NEW({dispatch}, data){
 		let formData = new FormData()
 		formData.append('title', data.title)
 		formData.append('text', data.text)
@@ -28,10 +28,11 @@ export const actions = {
 			        'Content-Type': 'multipart/form-data'
 			}
 		 })
-		await dispatch('FETCH_NEWS','all')
+		await dispatch('FETCH_NEWS',data.link)
 	},
-	async DEL_NEW(context, id){
-		const response = await this.$axios.$delete(`http://test.local/app/api/news/delete/${id}`)
+	async DEL_NEW(context, data){
+		const response = await this.$axios.$delete(`http://test.local/app/api/news/delete/${data.id}`)
+		await dispatch("FETCH_NEWS", data.link)
 	}
 }
 
@@ -39,11 +40,15 @@ export const mutations = {
 	SET_NEWS(state, data){
 		if (data._links.prev){
 			state.prev = data._links.prev
+		} else {
+			state.prev = null
 		}
 		if (data._links.next){
-			state.prev = data._links.next
+			state.next = data._links.next
+		} else {
+			state.prev = null
 		}
-		state.news = data.embedded.items
+		state.news = data._embedded.items
 	}
 }
 

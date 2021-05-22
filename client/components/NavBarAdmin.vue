@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <nuxt-link exact active-class="active" class="nav-link" to="/editor">Панель Управления</nuxt-link>
+          <nuxt-link exact active-class="active" class="nav-link" to="/admin">Панель Управления</nuxt-link>
         </li>
         <li class="nav-item">
           <a class="nav-link" @click.prevent = "logout">Выйти</a>

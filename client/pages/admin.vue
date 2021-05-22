@@ -15,11 +15,11 @@
 			<div class="col" v-for="item in NEWS">
 				<NewsItem :item="item" :editable="true"/>
 			</div>
-			<div class="d-flex g-3">
-				<button v-if = "PREV" class="w-100 btn btn-lg btn-primary" @click="next" type="submit">Предыдущая</button>
-				<button v-if = "NEXT" class="w-100 btn btn-lg btn-primary" @click="prev" type="submit">Следующая</button>
-			</div>
 		</div>
+	</div>
+	<div class="d-flex g-3">
+		<button v-if = "PREV" class="w-100 btn btn-lg btn-primary" @click="prev" type="submit">Предыдущая</button>
+		<button v-if = "NEXT" class="w-100 btn btn-lg btn-primary" @click="next" type="submit">Следующая</button>
 	</div>
 </div>
 </template>
@@ -30,13 +30,13 @@ import NewsItem from '@/components/NewsItem'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-	async fetch({store, route}){
+	async fetch({store, query}){
 		let page = 1
 		let limit = 6
 		let link = 'http://test.local/app/api/news/all'
-		if (route.query.page){
-			page = parseInt(route.query.page)
-			offset = (page-1)*limit
+		if (query.page){
+			page = parseInt(query.page)
+			let offset = (page-1)*limit
 			link+=`?offset=${offset}&limit=${limit}`
 			this.page = page
 		}
@@ -61,9 +61,13 @@ export default {
 		},
 		async next(){
 			await this.FETCH_NEWS(this.NEXT)
+			this.page+=1
+			this.$router.push(`?page=${this.page}`)
 		},
 		async prev(){
 			await this.FETCH_NEWS(this.PREV)
+			this.page-=1
+			this.$router.push(`?page=${this.page}`)
 		}
 	},
 	computed: {
@@ -71,10 +75,14 @@ export default {
 		...mapGetters('news', ['NEWS', 'PREV', 'NEXT']),
 	},
 	async created(){
-		await this.FETCH_USER()
-		if (!this.USER){
-			this.$router.push('/signin')
-		}
+		// if (process.client){
+		// 	if (!this.USER){
+		// 		await this.FETCH_USER()
+		// 	}
+		// 	if (!this.USER){
+		// 		this.$router.push('/signin')
+		// 	}
+		// }
 	}
 }
 </script>

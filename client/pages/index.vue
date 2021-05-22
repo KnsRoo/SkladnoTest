@@ -5,26 +5,26 @@
 			<div class="col" v-for="item in NEWS">
 				<NewsItem :item="item" :editable="false"/>
 			</div>
-			<div class="d-flex g-3">
-				<button v-if="PREV" class="w-100 btn btn-lg btn-primary" @click="next" type="submit">Предыдущая</button>
-				<button v-if="NEXT" class="w-100 btn btn-lg btn-primary" @click="prev" type="submit">Следующая</button>
-			</div>
 		</div>
+	</div>
+	<div class="d-flex g-3">
+		<button v-if="PREV" class="w-100 btn btn-lg btn-primary" @click="prev">Предыдущая</button>
+		<button v-if="NEXT" class="w-100 btn btn-lg btn-primary" @click="next">Следующая</button>
 	</div>
 </div>
 </template>
 
 <script>
 import NewsItem from '@/components/NewsItem'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
-	async fetch({store, route}){
+	async fetch({store, query}){
 		let page = 1
 		let limit = 6
 		let link = 'http://test.local/app/api/news'
-		if (route.query.page){
-			page = parseInt(route.query.page)
+		if (query.page){
+			page = parseInt(query.page)
 			offset = (page-1)*limit
 			link+=`?offset=${offset}&limit=${limit}`
 			this.page = page
@@ -45,9 +45,13 @@ export default {
 		...mapActions('news', ['FETCH_NEWS']),
 		async next(){
 			await this.FETCH_NEWS(this.NEXT)
+			this.page+=1
+			this.$router.push(`?page=${this.page}`)
 		},
 		async prev(){
 			await this.FETCH_NEWS(this.PREV)
+			this.page-=1
+			this.$router.push(`?page=${this.page}`)
 		}
 	},
 	computed: {

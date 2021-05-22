@@ -100,7 +100,7 @@ class NewsController extends Controller
         return $this->saveItem($new, $req);
     }
 
-	public function updateNew(Request $req, $id)
+	public function updateNew(NewsRequest $req, $id)
 	{
         $new = NewsModel::where('id',(Integer)$id)
                 ->first();
