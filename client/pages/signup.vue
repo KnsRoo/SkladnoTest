@@ -8,13 +8,13 @@
       <input type="email" class="form-control" id="floatingInput" v-model="email" placeholder="E-mail">
     </div>
     <div class="form-floating p-3">
-      <input type="text" class="form-control" id="floatingInput" v-model="name" placeholder="Имя">
+      <input type="text" class="form-control" id="floatingInput2" v-model="name" placeholder="Имя">
     </div>
     <div class="form-floating p-3">
       <input type="password" class="form-control" id="floatingPassword" v-model="password" placeholder="Пароль">
     </div>
     <div class="form-floating p-3">
-      <input type="password" class="form-control" id="floatingPassword" v-model="password_confirm" placeholder="Подтвердите пароль">
+      <input type="password" class="form-control" id="floatingPassword2" v-model="password_confirm" placeholder="Подтвердите пароль">
     </div>
     <button class="w-100 btn btn-lg btn-primary" :disabled="!valid" type="submit">Зарегистрироваться</button>
   </form>

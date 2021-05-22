@@ -52,12 +52,12 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./client/pages/signin.vue?vue&type=template&id=1a8f8062&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./client/pages/signin.vue?vue&type=template&id=c4f4cbca&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-center"},[_vm._ssrNode("<div class=\"form-signin mt-5\"><form><h1 class=\"h3 mb-3 fw-normal center\">Вход</h1> <div class=\"form-floating p-3\"><input type=\"email\" id=\"floatingInput\" placeholder=\"E-mail\""+(_vm._ssrAttr("value",(_vm.email)))+" class=\"form-control\"></div> <div class=\"form-floating p-3\"><input type=\"password\" id=\"floatingPassword\" placeholder=\"Пароль\""+(_vm._ssrAttr("value",(_vm.password)))+" class=\"form-control\"></div> <button type=\"submit\" class=\"w-100 btn btn-lg btn-primary\">Войти</button></form></div>")])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./client/pages/signin.vue?vue&type=template&id=1a8f8062&
+// CONCATENATED MODULE: ./client/pages/signin.vue?vue&type=template&id=c4f4cbca&
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(3);
@@ -99,7 +99,6 @@ var external_vuex_ = __webpack_require__(3);
       });
 
       if (result) {
-        console.log('toAdmin');
         this.$router.push('/admin');
       }
     }

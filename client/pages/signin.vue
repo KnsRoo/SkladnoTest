@@ -31,7 +31,6 @@ export default {
     async signIn(){
       let result = await this.LOGIN({email: this.email, password: this.password})
       if (result){
-        console.log('toAdmin')
         this.$router.push('/admin')
       }
     }
