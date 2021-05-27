@@ -1,4 +1,5 @@
 import qs from 'qs'
+import api from '@/middleware/api'
 
 export const state = () => ({
 	user: {}
@@ -9,7 +10,7 @@ export const actions = {
 		let token = JSON.parse(localStorage.getItem("jwt"))
 		if (!token) return;
 		let header = `${token.token_type} ${token.access_token}`
-		const response = await this.$axios.$post('http://test.local/app/api/auth/me', {},{
+		const response = await this.$axios.$post(api.check, {},{
 			headers: {
 				Authorization: header
 			}
@@ -17,14 +18,14 @@ export const actions = {
 		commit('SET_USER', response)
 	},
 	async REGISTRATION(context, params){
-		const response = await this.$axios.$post('http://test.local/app/api/auth/registration', {params})
+		const response = await this.$axios.$post(api.registration, qs.stringify(params))
 		if (response.message != 'Successfully registration!'){
 			return false
 		} 
 		return true
 	},
 	async LOGIN({dispatch, commit, state}, data){
-		const response = await this.$axios.$post('http://test.local/app/api/auth/login', 
+		const response = await this.$axios.$post(api.login, 
 			qs.stringify(data),{
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',

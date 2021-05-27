@@ -1,8 +1,12 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   srcDir: __dirname,
-  trailingSlash: false,
 
+  env: {
+    baseURL: 'http://test.local'
+  },
+
+  trailingSlash: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'client',

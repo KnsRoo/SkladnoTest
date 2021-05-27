@@ -2,6 +2,12 @@
   "name": "News-test-app",
   "version": "1.0.0",
   "private": true,
+  "config": {
+    "nuxt": {
+      "host": "test.local",
+      "port": "3000"
+    }
+  },
   "scripts": {
     "dev": "nuxt -c client/nuxt.config.js",
     "build": "nuxt build -c client/nuxt.config.js",

@@ -38,6 +38,17 @@ class Handler extends ExceptionHandler
     }
 
     /**
+     * Report an error in JSON format.
+     *
+     * @param  \String  $message
+     * @param  \Integer $code
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function error($message, $code = 404){
+        return response()->json(['message' => $message], $code);
+    }
+
+    /**
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request

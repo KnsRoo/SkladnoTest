@@ -17,19 +17,24 @@
 <script>
 import NewsItem from '@/components/NewsItem'
 import { mapActions, mapGetters } from 'vuex'
+import api from '@/middleware/api'
+import qs from 'qs'
 
 export default {
 	async fetch({store, query}){
 		let page = 1
 		let limit = 6
-		let link = 'http://test.local/app/api/news'
+		let link = api.published
 		if (query.page){
 			page = parseInt(query.page)
-			offset = (page-1)*limit
-			link+=`?offset=${offset}&limit=${limit}`
+			let params = {
+				limit,
+				offset: (page-1)*limit
+			}
+			link+=qs.stringify(params)
 			this.page = page
 		}
-		if (store.getters['news/NEWS'].length == 0){
+		if (!store.getters['news/NEWS'].length){
 			await store.dispatch('news/FETCH_NEWS',link)
 		}
 	},
@@ -40,6 +45,9 @@ export default {
 	},
 	components: {
 		NewsItem
+	},
+	computed: {
+		...mapGetters('news', ['NEWS', 'PREV', 'NEXT']),
 	},
 	methods: {
 		...mapActions('news', ['FETCH_NEWS']),
@@ -53,9 +61,6 @@ export default {
 			this.page-=1
 			this.$router.push(`?page=${this.page}`)
 		}
-	},
-	computed: {
-		...mapGetters('news', ['NEWS', 'PREV', 'NEXT']),
 	}
 }
 </script>

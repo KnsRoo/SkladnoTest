@@ -10,7 +10,7 @@
     <div class="form-floating p-3">
       <input type="password" class="form-control" id="floatingPassword" v-model="password" placeholder="Пароль">
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+    <button :disabled = "!valid" class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
   </form>
 </div>
 </div>
@@ -24,6 +24,12 @@ export default {
     return {
       email: '',
       password: ''
+    }
+  },
+  computed: {
+    valid(){
+      let isEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.email)
+      return isEmail && this.password.length
     }
   },
   methods: {

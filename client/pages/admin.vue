@@ -26,18 +26,22 @@
 
 <script>
 import NewsItem from '@/components/NewsItem'
-
+import api from '@/middleware/api'
 import { mapActions, mapGetters } from 'vuex'
+import qs from 'qs'
 
 export default {
 	async fetch({store, query}){
 		let page = 1
 		let limit = 6
-		let link = 'http://test.local/app/api/news/all'
+		let link = api.all
 		if (query.page){
 			page = parseInt(query.page)
-			let offset = (page-1)*limit
-			link+=`?offset=${offset}&limit=${limit}`
+			let params = {
+				limit,
+				offset: (page-1)*limit
+			}
+			link+=qs.stringify(params)
 			this.page = page
 		}
 		if (store.getters['news/NEWS'].length == 0){

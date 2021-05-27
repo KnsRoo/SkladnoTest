@@ -1,7 +1,7 @@
 exports.ids = [4,1];
 exports.modules = {
 
-/***/ 35:
+/***/ 36:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16,7 +16,7 @@ var staticRenderFns = []
 // CONCATENATED MODULE: ./client/components/NewsItem.vue?vue&type=template&id=55dfd282&
 
 // EXTERNAL MODULE: external "vuex"
-var external_vuex_ = __webpack_require__(3);
+var external_vuex_ = __webpack_require__(4);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./client/components/NewsItem.vue?vue&type=script&lang=js&
 //
@@ -94,25 +94,32 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 52:
+/***/ 53:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./client/pages/index.vue?vue&type=template&id=ea4f7552&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./client/pages/index.vue?vue&type=template&id=24a8a5a2&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container"},[_vm._ssrNode("<div class=\"album py-5 bg-light mt-5\">","</div>",[_vm._ssrNode("<div class=\"row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3\">","</div>",_vm._l((_vm.NEWS),function(item){return _vm._ssrNode("<div class=\"col\">","</div>",[_c('NewsItem',{attrs:{"item":item,"editable":false}})],1)}),0)]),_vm._ssrNode(" <div class=\"d-flex g-3\">"+((_vm.PREV)?("<button class=\"w-100 btn btn-lg btn-primary\">Предыдущая</button>"):"<!---->")+" "+((_vm.NEXT)?("<button class=\"w-100 btn btn-lg btn-primary\">Следующая</button>"):"<!---->")+"</div>")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./client/pages/index.vue?vue&type=template&id=ea4f7552&
+// CONCATENATED MODULE: ./client/pages/index.vue?vue&type=template&id=24a8a5a2&
 
 // EXTERNAL MODULE: ./client/components/NewsItem.vue + 4 modules
-var NewsItem = __webpack_require__(35);
+var NewsItem = __webpack_require__(36);
 
 // EXTERNAL MODULE: external "vuex"
-var external_vuex_ = __webpack_require__(3);
+var external_vuex_ = __webpack_require__(4);
+
+// EXTERNAL MODULE: ./client/middleware/api.js
+var api = __webpack_require__(3);
+
+// EXTERNAL MODULE: external "qs"
+var external_qs_ = __webpack_require__(9);
+var external_qs_default = /*#__PURE__*/__webpack_require__.n(external_qs_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./client/pages/index.vue?vue&type=script&lang=js&
 //
@@ -133,6 +140,8 @@ var external_vuex_ = __webpack_require__(3);
 //
 
 
+
+
 /* harmony default export */ var pagesvue_type_script_lang_js_ = ({
   async fetch({
     store,
@@ -140,16 +149,19 @@ var external_vuex_ = __webpack_require__(3);
   }) {
     let page = 1;
     let limit = 6;
-    let link = 'http://test.local/app/api/news';
+    let link = api["default"].published;
 
     if (query.page) {
       page = parseInt(query.page);
-      offset = (page - 1) * limit;
-      link += `?offset=${offset}&limit=${limit}`;
+      let params = {
+        limit,
+        offset: (page - 1) * limit
+      };
+      link += external_qs_default.a.stringify(params);
       this.page = page;
     }
 
-    if (store.getters['news/NEWS'].length == 0) {
+    if (!store.getters['news/NEWS'].length) {
       await store.dispatch('news/FETCH_NEWS', link);
     }
   },
@@ -162,6 +174,8 @@ var external_vuex_ = __webpack_require__(3);
 
   components: {
     NewsItem: NewsItem["default"]
+  },
+  computed: { ...Object(external_vuex_["mapGetters"])('news', ['NEWS', 'PREV', 'NEXT'])
   },
   methods: { ...Object(external_vuex_["mapActions"])('news', ['FETCH_NEWS']),
 
@@ -177,8 +191,6 @@ var external_vuex_ = __webpack_require__(3);
       this.$router.push(`?page=${this.page}`);
     }
 
-  },
-  computed: { ...Object(external_vuex_["mapGetters"])('news', ['NEWS', 'PREV', 'NEXT'])
   }
 });
 // CONCATENATED MODULE: ./client/pages/index.vue?vue&type=script&lang=js&
@@ -211,7 +223,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var pages = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {NewsItem: __webpack_require__(35).default})
+installComponents(component, {NewsItem: __webpack_require__(36).default})
 
 
 /***/ })

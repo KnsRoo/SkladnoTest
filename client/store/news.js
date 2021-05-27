@@ -1,3 +1,5 @@
+import api from '@/middleware/api'
+
 export const state = () => ({
 	news: [],
 	prev: null,
@@ -18,9 +20,9 @@ export const actions = {
 			formData.append('file', data.file)
 		if (data.visible == 2)
 			formData.append('publicationDate', data.publicationDate)
-		let link = 'http://test.local/app/api/news/create'
+		let link = api.create
 		if (data.id){
-			link = `http://test.local/app/api/news/update/${data.id}`
+			link = api.update(data.id)
 		}
 		let token = JSON.parse(localStorage.getItem("jwt"))
 		let header = `${token.token_type} ${token.access_token}`
@@ -36,7 +38,7 @@ export const actions = {
 	async DEL_NEW({dispatch}, data){
 		let token = JSON.parse(localStorage.getItem("jwt"))
 		let header = `${token.token_type} ${token.access_token}`
-		const response = await this.$axios.$delete(`http://test.local/app/api/news/delete/${data.id}`,{}, {
+		const response = await this.$axios.$delete(api.delete(data.id),{}, {
 			headers: {
 			        'Content-Type': 'multipart/form-data',
 			        Authorization: header
@@ -56,7 +58,7 @@ export const mutations = {
 		if (data._links.next){
 			state.next = data._links.next
 		} else {
-			state.prev = null
+			state.next = null
 		}
 		state.news = data._embedded.items
 	}
