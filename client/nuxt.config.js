@@ -2,6 +2,8 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   srcDir: __dirname,
 
+  target: 'static',
+
   env: {
     baseURL: 'http://test.local'
   },
@@ -48,4 +50,21 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
+
+  generate: {
+    routes: [
+      '/page/1',
+      '/page/2',
+      '/page/3',
+      '/page/4',
+      '/page/5',
+      '/page/6',
+      '/admin/page/1',
+      '/admin/page/2',
+      '/admin/page/3',
+      '/admin/page/4',
+      '/admin/page/5',
+      '/admin/page/6',
+    ]
+  }
 }

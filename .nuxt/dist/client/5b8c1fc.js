@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{302:function(n,e,d){"use strict";d.r(e);var r={middleware:function(n){return(0,n.redirect)("301","/admin/page/1")}},t=d(42),component=Object(t.a)(r,undefined,undefined,!1,null,null,null);e.default=component.exports}}]);

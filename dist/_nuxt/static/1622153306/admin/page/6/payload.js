@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/admin/page/6", (function(a){return {data:[{page:a}],fetch:{},mutations:[["news\u002FSET_NEWS",{total:28,offset:30,limit:a,_links:{self:"http:\u002F\u002Ftest.local\u002Fapp\u002Fapi\u002Fnews\u002Fall?offset=30&limit=6",prev:"http:\u002F\u002Ftest.local\u002Fapp\u002Fapi\u002Fnews\u002Fall?offset=24&limit=6"},_embedded:{items:[]}}]]}}(6)));

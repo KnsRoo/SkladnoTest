@@ -1,0 +1,25 @@
+{
+  "entry": "server.js",
+  "files": {
+    "components/news-item.js": "components/news-item.js",
+    "pages/admin/index.js": "pages/admin/index.js",
+    "pages/admin/page/_page.js": "pages/admin/page/_page.js",
+    "pages/editor.js": "pages/editor.js",
+    "pages/index.js": "pages/index.js",
+    "pages/page/_page.js": "pages/page/_page.js",
+    "pages/signin.js": "pages/signin.js",
+    "pages/signup.js": "pages/signup.js",
+    "server.js": "server.js"
+  },
+  "maps": {
+    "components/news-item.js": "components/news-item.js.map",
+    "pages/admin/index.js": "pages/admin/index.js.map",
+    "pages/admin/page/_page.js": "pages/admin/page/_page.js.map",
+    "pages/editor.js": "pages/editor.js.map",
+    "pages/index.js": "pages/index.js.map",
+    "pages/page/_page.js": "pages/page/_page.js.map",
+    "pages/signin.js": "pages/signin.js.map",
+    "pages/signup.js": "pages/signup.js.map",
+    "server.js": "server.js.map"
+  }
+}

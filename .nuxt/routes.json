@@ -2,9 +2,9 @@
   {
     "name": "admin",
     "path": "/admin",
-    "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\admin.vue",
-    "chunkName": "pages/admin",
-    "_name": "_5b9b9cef"
+    "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\admin\\\\index.vue",
+    "chunkName": "pages/admin/index",
+    "_name": "_b62fc69a"
   },
   {
     "name": "editor",
@@ -26,6 +26,20 @@
     "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\signup.vue",
     "chunkName": "pages/signup",
     "_name": "_59f8fbb0"
+  },
+  {
+    "name": "admin-page-page",
+    "path": "/admin/page/:page?",
+    "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\admin\\\\page\\\\_page.vue",
+    "chunkName": "pages/admin/page/_page",
+    "_name": "_6f176920"
+  },
+  {
+    "name": "page-page",
+    "path": "/page/:page?",
+    "component": "C:\\\\xampp-test\\\\htdocs\\\\test\\\\client\\\\pages\\\\page\\\\_page.vue",
+    "chunkName": "pages/page/_page",
+    "_name": "_ef99abc2"
   },
   {
     "name": "index",
