@@ -21,23 +21,6 @@ import api from '@/middleware/api'
 import qs from 'qs'
 
 export default {
-	async fetch({store, query}){
-		let page = 1
-		let limit = 6
-		let link = api.published
-		if (query.page){
-			page = parseInt(query.page)
-			let params = {
-				limit,
-				offset: (page-1)*limit
-			}
-			link+=qs.stringify(params)
-			this.page = page
-		}
-		if (!store.getters['news/NEWS'].length){
-			await store.dispatch('news/FETCH_NEWS',link)
-		}
-	},
 	data(){
 		return {
 			page: 1
@@ -61,7 +44,21 @@ export default {
 			this.page-=1
 			this.$router.push(`?page=${this.page}`)
 		}
-	}
+	},
+	async created(){
+		let limit = 6
+		let link = api.published
+		if (this.$route.query.page){
+			let page = parseInt(this.$route.query.page)
+			let params = {
+				limit,
+				offset: (page-1)*limit
+			}
+			link+='?'+qs.stringify(params)
+			this.page = page
+		}
+		await this.FETCH_NEWS(link)
+	},
 }
 </script>
 

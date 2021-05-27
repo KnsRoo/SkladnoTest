@@ -2,7 +2,7 @@
 <div class="container">
 	<div class="album py-5 bg-light mt-5">
 		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-			<div class="col">
+			<div v-if="page == 1" class="col">
 				<div @click = "add" class="card shadow-sm cp">
 					<img class = "bd-placeholder-img card-img-top" src="/add.png"/>
 					<div class="card-body">
@@ -31,23 +31,6 @@ import { mapActions, mapGetters } from 'vuex'
 import qs from 'qs'
 
 export default {
-	async fetch({store, query}){
-		let page = 1
-		let limit = 6
-		let link = api.all
-		if (query.page){
-			page = parseInt(query.page)
-			let params = {
-				limit,
-				offset: (page-1)*limit
-			}
-			link+=qs.stringify(params)
-			this.page = page
-		}
-		if (store.getters['news/NEWS'].length == 0){
-			await store.dispatch('news/FETCH_NEWS',link)
-		}
-	},
 	data(){
 		return {
 			page: 1
@@ -86,6 +69,18 @@ export default {
 				this.$router.push('/signin')
 			}
 		}
+		let limit = 6
+		let link = api.all
+		if (this.$route.query.page){
+			let page = parseInt(this.$route.query.page)
+			let params = {
+				limit,
+				offset: (page-1)*limit
+			}
+			link+='?'+qs.stringify(params)
+			this.page = page
+		}
+		await this.FETCH_NEWS(link)
 	}
 }
 </script>
