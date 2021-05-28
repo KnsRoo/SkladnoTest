@@ -12,7 +12,6 @@ class HAL
      * @param  \App\NewsModel $qb
      * @param  String $offset
      * @param  String $limit
-     * @param  String $route
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -46,7 +45,6 @@ class HAL
      * @param  \App\NewsModel $qb
      * @param  String $offset
      * @param  String $limit
-     * @param  String $route
      *
      * @return Array
      */
