@@ -17,7 +17,7 @@
 <script>
 import NewsItem from '@/components/NewsItem'
 import { mapActions, mapGetters } from 'vuex'
-import api from '@/middleware/api'
+import api from '@/utils/api'
 import qs from 'qs'
 
 export default {

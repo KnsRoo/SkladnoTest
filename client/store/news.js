@@ -1,4 +1,4 @@
-import api from '@/middleware/api'
+import api from '@/utils/api'
 
 export const state = () => ({
 	news: [],
