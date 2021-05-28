@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Facades\Route;
+
 class HAL
 {
     /**
@@ -14,7 +16,7 @@ class HAL
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function send($qb, $offset, $limit, $route = 'published'){
+    public static function send($qb, $offset, $limit){
 
         $qbCnt = clone $qb;
         $count = $qbCnt->count();
@@ -27,7 +29,7 @@ class HAL
             'total' => $count,
             'offset' => (Integer)$offset,
             'limit' => (Integer)$limit,
-            '_links' => self::getLinks($offset,$limit,$count,$route),
+            '_links' => self::getLinks($offset,$limit,$count),
             '_embedded' => [
                 'items' => $result
             ] 
@@ -48,19 +50,21 @@ class HAL
      *
      * @return Array
      */
-    private static function getLinks($offset, $limit, $count, $route){
-        
+    private static function getLinks($offset, $limit, $count){
+
+    	$route = Route::currentRouteName();
+
         $result = [];
-        $result['self'] = route("api:{$route}:get", ['offset' => $offset, 'limit' => $limit]);
+        $result['self'] = route($route, ['offset' => $offset, 'limit' => $limit]);
 
         if ($offset != 0){
             $prev = $offset - $limit;
-            $result['prev'] = route("api:{$route}:get", ['offset' => $prev, 'limit' => $limit]);
+            $result['prev'] = route($route, ['offset' => $prev, 'limit' => $limit]);
         }
 
         if ($count > $offset + $limit){
             $next = $offset + $limit;
-            $result['next'] = route("api:{$route}:get", ['offset' => $next, 'limit' => $limit]);
+            $result['next'] = route($route, ['offset' => $next, 'limit' => $limit]);
         }
 
         return $result;

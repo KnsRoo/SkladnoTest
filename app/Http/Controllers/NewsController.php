@@ -58,7 +58,7 @@ class NewsController extends Controller
         $qb = new NewsModel;
 
         // Last param sets a route must be returned
-        return HAL::send($qb, $offset,$limit, 'news');
+        return HAL::send($qb, $offset,$limit);
     }
 
     /**
