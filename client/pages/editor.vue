@@ -47,6 +47,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import api from '@/utils/api'
 
 export default {
 	data(){
@@ -80,7 +81,7 @@ export default {
 			if (this.editableId && this.mode == 'edit'){
 				data['id'] = this.editableId
 			}
-			data.link = "http://test.local/app/api/news/all"
+			data.link = api.all
 			await this.$store.dispatch('news/PATCH_NEW', data)
 			this.$router.push('/admin')
 		},
@@ -103,7 +104,7 @@ export default {
 		}
 		let id = this.$route.query.edit
 		if (!id) return;
-		const response = await this.$axios.$get(`http://test.local/app/api/news/get/${id}`)
+		const response = await this.$axios.$get(api.get(id))
 		this.editableId = response.id,
 		this.mode = 'edit',
 		this.title = response.title,
